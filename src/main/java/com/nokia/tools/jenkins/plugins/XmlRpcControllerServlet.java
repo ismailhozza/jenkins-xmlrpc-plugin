@@ -31,12 +31,16 @@ public class XmlRpcControllerServlet extends HttpServlet {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 		String requestContent = reader.readLine();
 		reader.close();
-		System.out.println("request contents: "+ requestContent);
 		String methodName = getMethodName(requestContent);
 		String[] params = getStringParameters(requestContent);
 		String ret = invoke(methodName,params);
+		createResponse(resp, ret);
+	}
+
+	private void createResponse(HttpServletResponse resp, String ret)
+			throws IOException {
 		PrintWriter writer = resp.getWriter();
-		writer.print(ret);
+		writer.print("<?xml version=\"1.0\"?><methodResponse><params><param><value><string>"+ret +"</string></value></param></params></methodResponse>");
 		writer.close();
 	}
 
@@ -65,7 +69,7 @@ public class XmlRpcControllerServlet extends HttpServlet {
 
 	private String invoke(String methodName, String[] params) {
 		if (methodName.endsWith("sayHello")) {
-			return "Hello " + params[0];
+			return "Hello " + ((params.length==1) ? params[0]:params[0] + " and "+ params[1]);
 		}
 		return "";
 	}

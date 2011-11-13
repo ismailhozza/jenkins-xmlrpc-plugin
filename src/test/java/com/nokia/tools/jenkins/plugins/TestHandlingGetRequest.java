@@ -34,19 +34,34 @@ public class TestHandlingGetRequest {
 	@Test
 	public void testSimpleMethodWithStringParam1() throws Exception {
 		setRequestMethod("POST");
-		String payLoad = getSimpleMethodWithStringParam("sayHello","Ismail");
+		String payLoad = getSimpleMethodWithStringParams("sayHello","Ismail");
 		addHeadersContentAndService(payLoad);
 		String content = response.getContentAsString();
-		assertEquals("Hello Ismail",content);
+		assertEquals(
+				"<?xml version=\"1.0\"?><methodResponse><params><param><value><string>Hello Ismail</string></value></param></params></methodResponse>",
+				content);
 	}
 	
 	@Test
 	public void testSimpleMethodWithStringParam2() throws Exception {
 		setRequestMethod("POST");
-		String payLoad = getSimpleMethodWithStringParam("sayHello","Markus");
+		String payLoad = getSimpleMethodWithStringParams("sayHello","Markus");
 		addHeadersContentAndService(payLoad);
 		String content = response.getContentAsString();
-		assertEquals("Hello Markus",content);
+		assertEquals(
+				"<?xml version=\"1.0\"?><methodResponse><params><param><value><string>Hello Markus</string></value></param></params></methodResponse>",
+				content);
+	}
+	
+	@Test
+	public void testSimpleMethodWithStringParams() throws Exception {
+		setRequestMethod("POST");
+		String payLoad = getSimpleMethodWithStringParams("sayHello","Markus", "Hussein");
+		addHeadersContentAndService(payLoad);
+		String content = response.getContentAsString();
+		assertEquals(
+				"<?xml version=\"1.0\"?><methodResponse><params><param><value><string>Hello Markus and Hussein</string></value></param></params></methodResponse>",
+				content);
 	}
 
 	private void addHeadersContentAndService(String payLoad)
@@ -57,14 +72,16 @@ public class TestHandlingGetRequest {
 		service();
 	}
 
-	private String getSimpleMethodWithStringParam(String methodName, String param) {
-		return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+	private String getSimpleMethodWithStringParams(String methodName, String ... params) {
+		String method =  "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
 				"<methodCall>" +
 				"<methodName>"+methodName+"</methodName>" +
-				"<params>" +
-				"<param><value><string>"+param+"</string></value></param>" +
-				"</params>" +
-				"</methodCall>";
+				"<params>";
+		for (String p : params) {
+			method += "<param><value><string>"+p+"</string></value></param>";
+		}
+		method +="</params></methodCall>";
+		return method;
 	}
 		
 	private void setRequestMethod(String method) {
