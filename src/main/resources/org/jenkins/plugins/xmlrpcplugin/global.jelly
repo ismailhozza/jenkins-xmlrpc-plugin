@@ -11,15 +11,15 @@
     tags they use. Views are always organized according to its owner class,
     so it should be straightforward to find them.
   -->
-  <f:section title="Hello World Builder">
+  <f:section title="VBR Builder">
     <!--
-      Optional @help points to the help document HTML. /plugin/jenkins-xmlrpc-plugin
+      Optional @help points to the help document HTML. /plugin/vbr-jenkins-plugin
       is mapped to our webapp/ directory, so this is a convenient way to serve
       static resources.
     -->
     <f:entry title="French"
       description="Check if we should say hello in French"
-      help="/plugin/jenkins-xmlrpc-plugin/help-globalConfig.html">
+      help="/plugin/vbr-jenkins-plugin/help-globalConfig.html">
       <!--
         We'll have on input field. The 'descriptor' variable represents our descriptor
         object, so we use that to determine the initial value for this form.
