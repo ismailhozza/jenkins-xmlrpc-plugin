@@ -17,11 +17,7 @@ public class JenkinsTest extends HudsonTestCase {
     @Test
     public void testJenkinsVersion() {
         VersionNumber version = Hudson.getVersion();
-        int d0 = version.digit(0);
-        int d1 = version.digit(1);
-        assertTrue(
-                "VBR plugin is built on jenkins 1.399 and it requires version equal or greater than that",
-                d0 == 1 && d1 >= 399);
+        assertTrue("1.399".compareTo(version.toString())<0);
     }
 
     @Test

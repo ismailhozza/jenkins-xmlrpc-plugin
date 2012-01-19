@@ -21,7 +21,6 @@ import org.kohsuke.stapler.StaplerResponse;
 
 //@ExportedBean
 @Extension
-// public final class Vbr extends AbstractModelObject implements TopLevelItem {
 public class JenkinsXmlRpcPlugin extends Plugin implements RootAction {
     public static String VERSION = "1.0-SNAPSHOT";
     private String encoding = XmlRpcServerConfigImpl.UTF8_ENCODING;
@@ -34,7 +33,6 @@ public class JenkinsXmlRpcPlugin extends Plugin implements RootAction {
     }
 
     public String getIconFileName() {
-        // return null to not display in the ui
         return null;
     }
 
@@ -46,13 +44,6 @@ public class JenkinsXmlRpcPlugin extends Plugin implements RootAction {
         return "rpc";
     }
 
-//    @Override
-//    public void start() throws Exception {
-//        super.start();
-//        System.out.println("plugin started!!!!!");
-//        init();
-//    }
-
     void init() throws Exception {
         XmlRpcServerConfigImpl config = new XmlRpcServerConfigImpl();
         config.setBasicEncoding(encoding);
@@ -62,11 +53,6 @@ public class JenkinsXmlRpcPlugin extends Plugin implements RootAction {
         server = new XmlRpcServletServer();
         server.setConfig(config);
         server.setErrorLogger(new XmlRpcErrorLogger());
-
-        // PropertyHandlerMapping handlerMapping = new PropertyHandlerMapping();
-        // for (String key : handlers.keySet()) {
-        // handlerMapping.addHandler(key, handlers.get(key).getClass());
-        // }
 
         PropertyHandlerMapping phm = new PropertyHandlerMapping() {
             @Override

@@ -17,7 +17,6 @@ public class JenkinsXmlRpcTypeFactory extends TypeFactoryImpl {
     @Override
     public TypeParser getParser(XmlRpcStreamConfig pConfig,
             NamespaceContextImpl pContext, String pURI, String pLocalName) {
-        // TODO Auto-generated method stub
         if ("".equals(pURI) && NullSerializer.NIL_TAG.equals(pLocalName)) {
             return new NullParser();
         } else {
